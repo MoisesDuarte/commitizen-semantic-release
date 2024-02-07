@@ -17,6 +17,7 @@
     "@semantic-release/commit-analyzer": "11.1.0",
     "@semantic-release/git": "10.0.1",
     "@semantic-release/github": "9.2.6",
+    "@semantic-release/npm": "11.0.2",
     "@semantic-release/release-notes-generator": "12.1.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "7.32.0 || 8.2.0",
@@ -44,6 +45,12 @@
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
       "@semantic-release/github",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
       [
         "@semantic-release/git",
         {

@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/MoisesDuarte/commitizen-semantic-release/compare/v1.1.0...v1.2.0) (2024-02-07)
+
+
+### Features
+
+* adicionando semantic-release npm ao projeto ([ddfcf89](https://github.com/MoisesDuarte/commitizen-semantic-release/commit/ddfcf8908bd566c7af3c32896fdfa37834e66a76))
+
 # [1.1.0](https://github.com/MoisesDuarte/commitizen-semantic-release/compare/v1.0.0...v1.1.0) (2024-02-07)
 
 

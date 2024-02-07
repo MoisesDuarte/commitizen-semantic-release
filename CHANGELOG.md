@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/MoisesDuarte/commitizen-semantic-release/compare/v1.0.0...v1.1.0) (2024-02-07)
+
+
+### Features
+
+* adicionando readme ao projeto ([d51f1e0](https://github.com/MoisesDuarte/commitizen-semantic-release/commit/d51f1e0d06eaf49ca6984fbb3db5bbf5a2dd8719))
+
 # 1.0.0 (2024-02-07)
 
 

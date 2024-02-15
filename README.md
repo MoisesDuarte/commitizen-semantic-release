@@ -1,3 +1,12 @@
+- [English Version](#english-version)
+- [Portuguese Version](#portuguese-version)
+
+# English Version
+
+WORK IN PROGRESS
+
+# Portuguese Version
+
 ## Introdução
 
 Atualmente, no desenvolvimento de software, mesmo se tratando do escopo único de uma única linguagem, uma unica implementação pode ser aplicada de muitas maneiras. Quando se trata de projetos de grande escopo, sempre há discrepâncias na maneira como cada um costuma desenvolver. Do nível mais basíco, da maneira como descreve seu trabalho em seu commit até ao nível mais técnico, como padrões de codificação.

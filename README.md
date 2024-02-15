@@ -3,7 +3,95 @@
 
 # English Version
 
-WORK IN PROGRESS
+## Introduction
+
+Currently, in software development, even within the unique scope of a single language, a single implementation can be applied in many ways. When it comes to large-scale projects, there are always discrepancies in how each one tends to develop. From the most basic level, such as describing your work in your commit, to the most technical level, such as coding standards.
+
+From how you name a variable, to how you space a code block, or the methodology behind the order of imports used by a file, there is much that needs to be enforced rather than verbally reiterated. Tools like eslint, prettier can automatically check and format code and notify what is out of standard, as well as alert to bad code practices that often lie in details that go unnoticed in a review. Even when dealing with the most common tools in our field, it is possible to enforce a message pattern that greatly aids in the readability of our logs.
+
+Among these is a library called commitizen that can help enforce a conventional pattern for your project.
+
+## Commitizen Configuration
+
+Assuming we are dealing with a node project, we start by installing the commitizen global CLI, which provides a configuration wizard.
+
+```shell
+$ npm install commitizen -g
+```
+
+With this, within our project, we can run the following command:
+
+```shell
+# npm
+commitizen init cz-conventional-changelog --save-dev --save-exact
+
+# yarn
+commitizen init cz-conventional-changelog --yarn --dev --exac
+```
+
+Which will result in the following configuration within your package.json, which by default takes into account that you want to use the [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) standard:
+
+```json
+"devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+```
+
+With this, when running the command `git cz`, you will have access to the commitizen CLI, which will step-by-step guide you in defining a readable commit using the conventional-commit pattern:
+
+![image](https://github.com/MoisesDuarte/commitizen-semantic-release/assets/47195481/348535a3-4a40-4e86-b5f3-6991612d9acf)
+
+However, there is a problem here.
+
+When it comes to these types of automations, it is important to remember the intention of removing the manual user action dependency in general. While it is possible to remember to always run a `git cz` to always have access to the CLI, it would be much better to configure this CLI in a way that it accepts a `git commit` , seeing that this is a universal command and even used in conjunction with several flags that are not supported by `git cz`. Logically, the act of typing any of these commands is a manual process, one of them is so customary that it is basically an automatic process.
+
+To then configure this process automatically, we will use a library called husky.
+
+## Setting up a Hook to Catch Our Fish (considering that the fish is our commit and that our hook is not a real hook, but rather a symbol representing a point of capture and somehow it is possible to fish with just a hook.)
+
+The main objective of the husky library is to serve a variety of "hooks" throughout the execution of a commit where any action can be implemented. From linting files to our friend commitizen that we configured just before.
+
+![Husky makes Git hooks easy to setup — Integrate pre-commit + run unit test cases in Angular | by Mayur Mathurkar | Medium](https://miro.medium.com/v2/resize:fit:758/1*gL0ycLkBrXFttcp68I91pw.png)
+
+For this, we will use the `prepare-commit-msg` hook, which runs just before the closing `commit-msg` hook.
+
+First, we install husky in the project as a devDependency (it will not in any way enter the compilation layer of an application, so there is no need for it to be a common dependency).
+
+```shell
+# npm
+npm install --save-dev husky
+
+# yarn
+yarn add --dev husky
+```
+
+And right after the command `npx husky init`, which will create the .husky folder in our project, with a pre-configured example hook:
+
+![image](https://github.com/MoisesDuarte/commitizen-semantic-release/assets/47195481/70ecf1d5-fe3e-44a6-ad8f-4087c2403230)
+
+Rename this hook to `prepare-commit-msg` and paste the following script into it:
+
+```shell
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if ! git rev-parse -q --no-revs --verify MERGE_HEAD # Ensure that GUI won't appear in case of merge commit
+then
+    exec < /dev/tty && yarn cz --hook || true # Execute the cz command with the flag indicating execution within a hook
+fi
+
+exit 0
+```
+
+Now, when running `git commit`, the CLI will be automatically displayed:
+
+![image](https://github.com/MoisesDuarte/commitizen-semantic-release/assets/47195481/90f88f71-4ecc-4a01-896f-8ed1d7e1087c)
+
 
 # Portuguese Version
 
